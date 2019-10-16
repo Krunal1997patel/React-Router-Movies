@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import MovieCard from './MovieCard';
 import axios from 'axios';
 
 const Movie = (props) => {
@@ -22,10 +23,11 @@ const Movie = (props) => {
   },[props.match.params.id]);
   
   // Uncomment this only when you have moved on to the stretch goals
-  // const saveMovie = () => {
-  //   const addToSavedList = props.addToSavedList;
-  //   addToSavedList(movie)
-  // }
+  const saveMovie = () => {
+    const addToSavedList = props.addToSavedList;
+    addToSavedList(movie)
+    // console.log(movie);
+  }
 
   if (!movie) {
     return <div>Loading movie information...</div>;
@@ -36,34 +38,36 @@ const Movie = (props) => {
   
   return (
     <div className="save-wrapper">
-      <div className="movie-card">
+      <MovieCard  title={title} director={director} metascore={metascore} stars={stars} key={stars} />
 
-        <h2>{title}</h2>
-
-        <div className="movie-director">
-          Director: <em>{director}</em>
-        </div>
-
-        <div className="movie-metascore">
-          Metascore: <strong>{metascore}</strong>
-        </div>
-
-        <h3>Actors</h3>
-
-
-        {stars.map(star => (
-          <div key={star} className="movie-star">
-            {star}
-          </div>
-        ))}
-
-
-      </div>
-
-      <div className="save-button">Save</div>
+      <div onClick={() => saveMovie()} className="save-button">Save</div>
       
     </div>
   );
 }
 
 export default Movie;
+
+{/* <div className="movie-card">
+
+  <h2>{title}</h2>
+
+  <div className="movie-director">
+    Director: <em>{director}</em>
+  </div>
+
+  <div className="movie-metascore">
+    Metascore: <strong>{metascore}</strong>
+  </div>
+
+  <h3>Actors</h3>
+
+
+  {stars.map(star => (
+    <div key={star} className="movie-star">
+      {star}
+    </div>
+  ))}
+
+
+</div> */}
